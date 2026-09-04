@@ -1,7 +1,9 @@
 package org.example.mall.mapper;
 
 import org.example.mall.entity.Category;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CategoryMapper {
     int deleteByPrimaryKey(Integer id);
 

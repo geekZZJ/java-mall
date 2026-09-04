@@ -1,7 +1,9 @@
 package org.example.mall.mapper;
 
 import org.example.mall.entity.OrderItem;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface OrderItemMapper {
     int deleteByPrimaryKey(Integer id);
 

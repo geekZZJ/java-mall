@@ -1,7 +1,9 @@
 package org.example.mall.mapper;
 
 import org.example.mall.entity.User;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 

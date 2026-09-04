@@ -1,7 +1,9 @@
 package org.example.mall.mapper;
 
 import org.example.mall.entity.Cart;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CartMapper {
     int deleteByPrimaryKey(Integer id);
 
