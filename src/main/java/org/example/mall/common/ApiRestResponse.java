@@ -2,7 +2,7 @@ package org.example.mall.common;
 
 import org.example.mall.exception.MallExceptionEnum;
 
-public class ApiRestResponse {
+public class ApiRestResponse<T> {
     private Integer status;
     private String msg;
     private T data;
