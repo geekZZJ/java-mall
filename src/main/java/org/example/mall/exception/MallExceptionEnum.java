@@ -13,6 +13,12 @@ public enum MallExceptionEnum {
 
     WRONG_PASSWORD(206, "密码错误"),
 
+    NEED_LOGIN(207, "用户未登陆"),
+
+    UPDATE_FAIL(208, "更新失败"),
+
+    NOT_ADMIN(209, "无管理员权限"),
+
     SYSTEM_ERROR(500, "系统异常");
 
     Integer code;

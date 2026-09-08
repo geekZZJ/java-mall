@@ -56,4 +56,17 @@ public class UserServiceImpl implements UserService {
         }
         return user;
     }
+
+    @Override
+    public void updateInfo(User user) throws MallException {
+        Integer updateCount = userMapper.updateByPrimaryKeySelective(user);
+        if (updateCount > 1) {
+            throw new MallException(MallExceptionEnum.UPDATE_FAIL);
+        }
+    }
+
+    @Override
+    public boolean checkAdminRole(User user) {
+        return user.getRole().equals(2);
+    }
 }

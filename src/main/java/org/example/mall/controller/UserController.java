@@ -57,4 +57,45 @@ public class UserController {
         session.setAttribute(Constant.MALL_USER, user);
         return ApiRestResponse.success(user);
     }
+
+    @PostMapping("/user/update")
+    @ResponseBody
+    public ApiRestResponse updateUserInfo(HttpSession session, @RequestParam String signature) throws MallException {
+        User user = (User) session.getAttribute(Constant.MALL_USER);
+        if (user == null) {
+            return ApiRestResponse.error(MallExceptionEnum.NEED_LOGIN);
+        }
+        User user1 = new User();
+        user1.setId(user.getId());
+        user1.setPersonalizedSignature(signature);
+        userService.updateInfo(user1);
+        return ApiRestResponse.success();
+    }
+
+    @PostMapping("/user/logout")
+    @ResponseBody
+    public ApiRestResponse logout(HttpSession session) {
+        session.removeAttribute(Constant.MALL_USER);
+        return ApiRestResponse.success();
+    }
+
+    @PostMapping("/admin/login")
+    @ResponseBody
+    public ApiRestResponse adminLogin(@RequestParam String username, @RequestParam String password, HttpSession session) throws MallException {
+        if (StringUtils.isEmpty(username)) {
+            return ApiRestResponse.error(MallExceptionEnum.NEED_USER_NAME);
+        }
+        if (StringUtils.isEmpty(password)) {
+            return ApiRestResponse.error(MallExceptionEnum.NEED_PASSWORD);
+        }
+        User user = userService.login(username, password);
+        if (userService.checkAdminRole(user)) {
+            user.setPassword(null);
+            session.setAttribute(Constant.MALL_USER, user);
+            return ApiRestResponse.success(user);
+        } else {
+            return ApiRestResponse.error(MallExceptionEnum.NOT_ADMIN);
+        }
+
+    }
 }
