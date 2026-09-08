@@ -40,4 +40,16 @@ public class UserController {
 
         return ApiRestResponse.success();
     }
+
+    @PostMapping("/login")
+    @ResponseBody
+    public ApiRestResponse login(@RequestParam String username, @RequestParam String password) {
+        if (StringUtils.isEmpty(username)) {
+            return ApiRestResponse.error(MallExceptionEnum.NEED_USER_NAME);
+        }
+        if (StringUtils.isEmpty(password)) {
+            return ApiRestResponse.error(MallExceptionEnum.NEED_PASSWORD);
+        }
+        return null;
+    }
 }
