@@ -1,7 +1,9 @@
 package org.example.mall.controller;
 
 import io.micrometer.common.util.StringUtils;
+import jakarta.servlet.http.HttpSession;
 import org.example.mall.common.ApiRestResponse;
+import org.example.mall.common.Constant;
 import org.example.mall.entity.User;
 import org.example.mall.exception.MallException;
 import org.example.mall.exception.MallExceptionEnum;
@@ -43,13 +45,16 @@ public class UserController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ApiRestResponse login(@RequestParam String username, @RequestParam String password) {
+    public ApiRestResponse login(@RequestParam String username, @RequestParam String password, HttpSession session) throws MallException {
         if (StringUtils.isEmpty(username)) {
             return ApiRestResponse.error(MallExceptionEnum.NEED_USER_NAME);
         }
         if (StringUtils.isEmpty(password)) {
             return ApiRestResponse.error(MallExceptionEnum.NEED_PASSWORD);
         }
-        return null;
+        User user = userService.login(username, password);
+        user.setPassword(null);
+        session.setAttribute(Constant.MALL_USER, user);
+        return ApiRestResponse.success(user);
     }
 }

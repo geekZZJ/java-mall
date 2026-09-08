@@ -41,4 +41,19 @@ public class UserServiceImpl implements UserService {
             throw new MallException(MallExceptionEnum.CREATE_USER_FAIL);
         }
     }
+
+    @Override
+    public User login(String username, String password) throws MallException {
+        String md5Password = null;
+        try {
+            md5Password = MD5Utils.getMD5Str(password);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        User user = userMapper.selectLogin(username, md5Password);
+        if (user == null) {
+            throw new MallException(MallExceptionEnum.WRONG_PASSWORD);
+        }
+        return user;
+    }
 }

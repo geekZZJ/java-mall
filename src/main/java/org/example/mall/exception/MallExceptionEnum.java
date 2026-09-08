@@ -11,6 +11,8 @@ public enum MallExceptionEnum {
 
     CREATE_USER_FAIL(205, "创建失败，请重试"),
 
+    WRONG_PASSWORD(206, "密码错误"),
+
     SYSTEM_ERROR(500, "系统异常");
 
     Integer code;
