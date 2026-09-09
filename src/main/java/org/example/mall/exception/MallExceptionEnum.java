@@ -19,6 +19,8 @@ public enum MallExceptionEnum {
 
     NOT_ADMIN(209, "无管理员权限"),
 
+    PARAM_NOT_NULL(210, "参数不能为空"),
+
     SYSTEM_ERROR(500, "系统异常");
 
     Integer code;
