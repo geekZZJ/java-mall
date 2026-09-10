@@ -6,6 +6,7 @@ import org.example.mall.common.Constant;
 import org.example.mall.entity.User;
 import org.example.mall.entity.request.AddCategoryReq;
 import org.example.mall.exception.MallExceptionEnum;
+import org.example.mall.service.CategoryService;
 import org.example.mall.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CategoryController {
     @Autowired
     UserService userService;
+    @Autowired
+    CategoryService categoryService;
 
     @PostMapping("/admin/category/add")
     @ResponseBody
@@ -29,7 +32,8 @@ public class CategoryController {
         }
         Boolean adminRole = userService.checkAdminRole(user);
         if (adminRole) {
-
+            categoryService.add(addCategoryReq);
+            return ApiRestResponse.success();
         } else {
             return ApiRestResponse.error(MallExceptionEnum.NOT_ADMIN);
         }
