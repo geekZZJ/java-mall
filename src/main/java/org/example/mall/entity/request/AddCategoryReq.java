@@ -1,9 +1,22 @@
 package org.example.mall.entity.request;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 public class AddCategoryReq {
+    @Size(min = 2, max = 5)
+    @NotNull
     private String name;
+
+    @NotNull
+    @Max(3)
     private Integer type;
+
+    @NotNull(message = "parentId不能为null")
     private Integer parentId;
+
+    @NotNull
     private Integer orderNum;
 
     public Integer getOrderNum() {

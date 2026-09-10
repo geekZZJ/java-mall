@@ -21,7 +21,9 @@ public enum MallExceptionEnum {
 
     PARAM_NOT_NULL(210, "参数不能为空"),
 
-    SYSTEM_ERROR(500,"系统异常");
+    REQUEST_PARAM_ERROR(211, "参数错误"),
+
+    SYSTEM_ERROR(500, "系统异常");
 
     Integer code;
     String message;
