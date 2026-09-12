@@ -1,5 +1,6 @@
 package org.example.mall.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.example.mall.common.ApiRestResponse;
@@ -22,9 +23,10 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
+    @Operation(summary = "后台添加目录")
     @PostMapping("/admin/category/add")
     @ResponseBody
-    public ApiRestResponse addCategory(HttpSession session,@Valid @RequestBody AddCategoryReq addCategoryReq) {
+    public ApiRestResponse addCategory(HttpSession session, @Valid @RequestBody AddCategoryReq addCategoryReq) {
         User user = (User) session.getAttribute(Constant.MALL_USER);
         if (user == null) {
             return ApiRestResponse.error(MallExceptionEnum.NEED_LOGIN);
