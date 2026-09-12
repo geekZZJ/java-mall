@@ -11,6 +11,7 @@ import org.example.mall.mapper.CategoryMapper;
 import org.example.mall.service.CategoryService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -70,6 +71,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Cacheable(value = "listCategoryForCustomer")
     public List<CategoryVo> listCategoryForCustomer() {
         ArrayList<CategoryVo> categoryVos = new ArrayList<CategoryVo>();
         recursiveFindCategories(categoryVos, 0);
