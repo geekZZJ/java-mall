@@ -15,8 +15,10 @@ import org.example.mall.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -60,5 +62,12 @@ public class CategoryController {
         } else {
             return ApiRestResponse.error(MallExceptionEnum.NOT_ADMIN);
         }
+    }
+
+    @Operation(summary = "后台删除目录")
+    @DeleteMapping("/admin/category/delete")
+    @ResponseBody
+    public ApiRestResponse deleteCategory() {
+        return null;
     }
 }
