@@ -23,6 +23,8 @@ public enum MallExceptionEnum {
 
     REQUEST_PARAM_ERROR(211, "参数错误"),
 
+    DELETE_FAIL(212, "删除失败"),
+
     SYSTEM_ERROR(500, "系统异常");
 
     Integer code;

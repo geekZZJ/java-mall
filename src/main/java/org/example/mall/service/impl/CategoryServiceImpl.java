@@ -1,7 +1,10 @@
 package org.example.mall.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.example.mall.entity.Category;
 import org.example.mall.entity.request.AddCategoryReq;
+import org.example.mall.entity.vo.CategoryVo;
 import org.example.mall.exception.MallException;
 import org.example.mall.exception.MallExceptionEnum;
 import org.example.mall.mapper.CategoryMapper;
@@ -9,6 +12,8 @@ import org.example.mall.service.CategoryService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -41,5 +46,24 @@ public class CategoryServiceImpl implements CategoryService {
         if (count == 0) {
             throw new MallException(MallExceptionEnum.CREATE_USER_FAIL);
         }
+    }
+
+    @Override
+    public void delete(Integer id) {
+        Category category = categoryMapper.selectByPrimaryKey(id);
+        if (category == null) {
+            throw new MallException(MallExceptionEnum.DELETE_FAIL);
+        }
+        int count = categoryMapper.deleteByPrimaryKey(id);
+        if (count == 0) {
+            throw new MallException(MallExceptionEnum.DELETE_FAIL);
+        }
+    }
+
+    @Override
+    public PageInfo<CategoryVo> listForAdmin(Integer page, Integer limit) {
+        PageHelper.startPage(page, limit, "type,order_num");
+        List<Category> categories = categoryMapper.selectList();
+        return new PageInfo(categories);
     }
 }

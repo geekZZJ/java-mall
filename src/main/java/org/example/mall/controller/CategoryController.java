@@ -1,5 +1,6 @@
 package org.example.mall.controller;
 
+import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 @Controller
 public class CategoryController {
@@ -67,7 +69,16 @@ public class CategoryController {
     @Operation(summary = "后台删除目录")
     @DeleteMapping("/admin/category/delete")
     @ResponseBody
-    public ApiRestResponse deleteCategory() {
-        return null;
+    public ApiRestResponse deleteCategory(@RequestParam Integer id) {
+        categoryService.delete(id);
+        return ApiRestResponse.success();
+    }
+
+    @Operation(summary = "后台目录列表")
+    @PostMapping("/admin/category/list")
+    @ResponseBody
+    public ApiRestResponse listCategoryForAdmin(@RequestParam Integer page, @RequestParam Integer size) {
+        PageInfo pageInfo = categoryService.listForAdmin(page, size);
+        return ApiRestResponse.success(pageInfo);
     }
 }

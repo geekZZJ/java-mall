@@ -119,4 +119,9 @@
         <include refid="Base_Column_List"/>
         from mall_category where name = #{name,jdbcType=VARCHAR}
     </select>
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mall_category
+    </select>
 </mapper>
