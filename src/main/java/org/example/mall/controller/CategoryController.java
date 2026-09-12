@@ -10,6 +10,7 @@ import org.example.mall.entity.Category;
 import org.example.mall.entity.User;
 import org.example.mall.entity.request.AddCategoryReq;
 import org.example.mall.entity.request.UpdateCategoryReq;
+import org.example.mall.entity.vo.CategoryVo;
 import org.example.mall.exception.MallExceptionEnum;
 import org.example.mall.service.CategoryService;
 import org.example.mall.service.UserService;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 
 @Controller
@@ -80,5 +83,13 @@ public class CategoryController {
     public ApiRestResponse listCategoryForAdmin(@RequestParam Integer page, @RequestParam Integer size) {
         PageInfo pageInfo = categoryService.listForAdmin(page, size);
         return ApiRestResponse.success(pageInfo);
+    }
+
+    @Operation(summary = "前台目录列表")
+    @PostMapping("/category/list")
+    @ResponseBody
+    public ApiRestResponse listCategoryForCustomer() {
+        List<CategoryVo> categoryVos = categoryService.listCategoryForCustomer();
+        return ApiRestResponse.success(categoryVos);
     }
 }

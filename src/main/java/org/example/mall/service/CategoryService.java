@@ -16,4 +16,6 @@ public interface CategoryService {
     void delete(Integer id);
 
     PageInfo<CategoryVo> listForAdmin(Integer page, Integer limit);
+
+    List<CategoryVo> listCategoryForCustomer();
 }

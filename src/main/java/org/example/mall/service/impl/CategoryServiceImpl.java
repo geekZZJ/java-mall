@@ -12,7 +12,9 @@ import org.example.mall.service.CategoryService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -65,5 +67,25 @@ public class CategoryServiceImpl implements CategoryService {
         PageHelper.startPage(page, limit, "type,order_num");
         List<Category> categories = categoryMapper.selectList();
         return new PageInfo(categories);
+    }
+
+    @Override
+    public List<CategoryVo> listCategoryForCustomer() {
+        ArrayList<CategoryVo> categoryVos = new ArrayList<CategoryVo>();
+        recursiveFindCategories(categoryVos, 0);
+        return categoryVos;
+    }
+
+    private void recursiveFindCategories(List<CategoryVo> categoryVos, Integer parentId) {
+        List<Category> categoryList = categoryMapper.selectCategoryByParentId(parentId);
+        if (!CollectionUtils.isEmpty(categoryList)) {
+            for (int i = 0; i < categoryList.size(); i++) {
+                Category category = categoryList.get(i);
+                CategoryVo categoryVo = new CategoryVo();
+                BeanUtils.copyProperties(category, categoryVo);
+                categoryVos.add(categoryVo);
+                recursiveFindCategories(categoryVo.getChildren(), categoryVo.getId());
+            }
+        }
     }
 }

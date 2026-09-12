@@ -124,4 +124,9 @@
         <include refid="Base_Column_List"/>
         from mall_category
     </select>
+    <select id="selectCategoryByParentId" resultMap="BaseResultMap" parameterType="int">
+        select
+        <include refid="Base_Column_List"/>
+        from mall_category where parent_id = #{parentId}
+    </select>
 </mapper>
