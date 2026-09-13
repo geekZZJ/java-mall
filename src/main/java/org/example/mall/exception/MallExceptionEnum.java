@@ -25,6 +25,10 @@ public enum MallExceptionEnum {
 
     DELETE_FAIL(212, "删除失败"),
 
+    MKDIR_FAIL(213, "创建文件夹失败"),
+
+    UPLOAD_FAIL(214, "上传文件失败"),
+
     SYSTEM_ERROR(500, "系统异常");
 
     Integer code;
