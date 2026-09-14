@@ -23,7 +23,7 @@ public class ProductServiceImpl implements ProductService {
         if (product1 != null) {
             throw new MallException(MallExceptionEnum.SAME_USER_NAME);
         }
-        int count = productMapper.insert(product);
+        int count = productMapper.insertSelective(product);
         if (count == 0) {
             throw new MallException(MallExceptionEnum.CREATE_USER_FAIL);
         }
