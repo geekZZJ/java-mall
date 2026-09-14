@@ -51,7 +51,7 @@ public class ProductAdminController {
             throw new RuntimeException(e);
         }
         try {
-            return ApiRestResponse.success(getHost(new URI(httpServletRequest.getRequestURL() + "")) + "/images/" + newFileName);
+            return ApiRestResponse.success(getHost(new URI(httpServletRequest.getRequestURL() + "")) + "/upload/" + newFileName);
         } catch (URISyntaxException e) {
             return ApiRestResponse.error(MallExceptionEnum.UPDATE_FAIL);
         }
