@@ -1,5 +1,7 @@
 package org.example.mall.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.example.mall.entity.Product;
 import org.example.mall.entity.request.AddProductReq;
 import org.example.mall.exception.MallException;
@@ -10,6 +12,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -57,5 +61,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void batchUpdateProductStatus(@RequestParam Integer[] ids, @RequestParam Integer sellStatus) {
         productMapper.batchUpdateSellStatus(ids, sellStatus);
+    }
+
+    @Override
+    public PageInfo listForAdmin(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Product> productList = productMapper.selectListForAdmin();
+        return new PageInfo<>(productList);
     }
 }

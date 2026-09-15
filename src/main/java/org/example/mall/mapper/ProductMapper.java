@@ -4,6 +4,8 @@ import io.lettuce.core.dynamic.annotation.Param;
 import org.example.mall.entity.Product;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ProductMapper {
     int deleteByPrimaryKey(Integer id);
@@ -21,4 +23,6 @@ public interface ProductMapper {
     Product selectByName(String name);
 
     int batchUpdateSellStatus(@Param("ids") Integer[] ids, @Param("sellStatus") Integer sellStatus);
+
+    List<Product> selectListForAdmin();
 }
