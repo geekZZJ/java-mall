@@ -9,6 +9,7 @@ import org.example.mall.service.ProductService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -51,5 +52,10 @@ public class ProductServiceImpl implements ProductService {
         if (count == 0) {
             throw new MallException(MallExceptionEnum.DELETE_FAIL);
         }
+    }
+
+    @Override
+    public void batchUpdateProductStatus(@RequestParam Integer[] ids, @RequestParam Integer sellStatus) {
+        productMapper.batchUpdateSellStatus(ids, sellStatus);
     }
 }

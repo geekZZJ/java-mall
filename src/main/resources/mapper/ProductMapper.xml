@@ -154,4 +154,8 @@
         <include refid="Base_Column_List"/>
         from mall_product where name = #{name.jdbcType = VARCHAR}
     </select>
+    <update id="batchUpdateSellStatus">
+        update mall_product set status = #{sellStatus} where id in
+        <foreach collection="ids" close=")" item="id" open="(" separator=",">#{id}</foreach>
+    </update>
 </mapper>
