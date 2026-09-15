@@ -1,18 +1,19 @@
 package org.example.mall.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.example.mall.common.ApiRestResponse;
 import org.example.mall.common.Constant;
+import org.example.mall.entity.Product;
 import org.example.mall.entity.request.AddProductReq;
+import org.example.mall.entity.request.UpdateProductReq;
 import org.example.mall.exception.MallException;
 import org.example.mall.exception.MallExceptionEnum;
 import org.example.mall.service.ProductService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -64,5 +65,21 @@ public class ProductAdminController {
         } catch (URISyntaxException e) {
         }
         return effectiveUri;
+    }
+
+    @Operation(summary = "后台更新商品")
+    @PutMapping("/admin/product/update")
+    public ApiRestResponse updateProduct(@Valid @RequestBody UpdateProductReq updateProductReq) {
+        Product product = new Product();
+        BeanUtils.copyProperties(updateProductReq, product);
+        productService.update(product);
+        return ApiRestResponse.success();
+    }
+
+    @Operation(summary = "后台删除商品")
+    @DeleteMapping("/admin/product/delete")
+    public ApiRestResponse deleteProduct(@RequestParam Integer id) {
+        productService.delete(id);
+        return ApiRestResponse.success();
     }
 }
